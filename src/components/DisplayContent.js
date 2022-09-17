@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Button } from '@mui/material'
+import { Typography, Grid } from '@mui/material';
+import Man2Icon from '@mui/icons-material/Man2';
+import Woman2Icon from '@mui/icons-material/Woman2';
 
 const DisplayContent = () => {
     const [data, setData] = useState([])
@@ -63,18 +65,20 @@ const DisplayContent = () => {
     ))
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            {/* <Button variant='contained'>Display</Button> */}
-            <div>
-                <div>male</div>
-                <ul>{displayMaleCats}</ul>
-            </div>
-            <div>
-                <div>female</div>
-                <ul>{displayFemaleCats}</ul>
-            </div>
-
-        </div>
+        <Grid container justifyContent='space-around' style={{ marginTop: '25px' }}>
+            <Grid item>
+                <Typography variant='h5' align='center'>
+                    Male{'  '}<Man2Icon />
+                </Typography>
+                <ul style={{ padding: 0 }}>{displayMaleCats}</ul>
+            </Grid>
+            <Grid item>
+                <Typography variant='h5' align='center'>
+                    Female{'  '}<Woman2Icon />
+                </Typography>
+                <ul style={{ padding: 0 }}>{displayFemaleCats}</ul>
+            </Grid>
+        </Grid>
     )
 }
 

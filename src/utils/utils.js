@@ -44,3 +44,11 @@ export const filterCats = (arr, filtered) => {
         return el.toLowerCase().includes(filtered.toLowerCase())
     })
 }
+
+
+//A simple delay function for the validation
+export const delay = milliseconds => {
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds)
+    })
+}

@@ -3,11 +3,16 @@ import { fetchData } from './utils/utils';
 import DisplayContent from './components/DisplayContent/DisplayContent'
 import { AppBar, Toolbar, Typography, Container, Grid, Button, TextField, CssBaseline } from '@mui/material';
 import { useStyles } from './styles/styles';
+import { delay } from './utils/utils';
 
 const App = () => {
-  const [showSolution, setShowSolution] = useState(true)
+  const [showSolution, setShowSolution] = useState(false)
   const [fetchedData, setFetchedData] = useState([])
   const [filteredData, setFilteredData] = useState('')
+  const [userInputPet, setUserInputPet] = useState('')
+  const [userInputGender, setUserInputGender] = useState('')
+  const [showPetError, setShowPetError] = useState(false)
+  const [showGenderError, setShowGenderError] = useState(false)
 
   const classes = useStyles()
 
@@ -21,12 +26,46 @@ const App = () => {
   }, [])
 
 
+  const triggerPetError = async () => {
+    setShowPetError(true)
+    await delay(1500)
+    setShowPetError(false)
+  }
+
+  const triggerGenderError = async () => {
+    setShowGenderError(true)
+    await delay(1500)
+    setShowGenderError(false)
+  }
+
+
+  //For validation
+  let petArray = ['dog', 'cat', 'fish']
+  let genderArray = ['male', 'female']
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if (!petArray.includes(userInputPet.toLowerCase())) {
+      triggerPetError()
+    }
+
+    if (!genderArray.includes(userInputGender.toLowerCase())) {
+      triggerGenderError()
+    }
+
+
+
+  }
+
+
+
 
   return (
     <>
       <CssBaseline />
 
-      <AppBar position='relative' color='error' data-testid='appbar'>
+      <AppBar position='relative' color='error' data-testid='appBar'>
         <Toolbar>
           <Grid container className={classes.center}>
             <Grid item>
@@ -62,7 +101,7 @@ const App = () => {
           </ul>
         </Grid>
 
-        <Grid container className={classes.center}>
+        <Grid container className={`${classes.center} ${classes.mBot}`}>
           <Button data-testid='button' variant={showSolution ? 'outlined' : 'contained'} color='error' onClick={() => setShowSolution(!showSolution)}>
             {showSolution ? 'Hide solution' : 'Show solution'}
           </Button>
@@ -76,7 +115,7 @@ const App = () => {
 
         {showSolution && (
           //Had to add 1 inline style because flexDirection does not work in styles.js. 
-          <Grid container className={classes.filter} style={{ flexDirection: 'column' }} spacing={2}>
+          <Grid container className={`${classes.filter} ${classes.mBot2}`} style={{ flexDirection: 'column' }} spacing={2}>
             <Grid item>
               <TextField
                 label="Filter cats here"
@@ -84,7 +123,7 @@ const App = () => {
                 color='error'
                 onChange={e => setFilteredData(e.target.value)}
                 value={filteredData}
-                data-testid='inputfield'
+                data-testid='inputField'
               />
             </Grid>
             <Grid item>
@@ -92,6 +131,42 @@ const App = () => {
             </Grid>
           </Grid>
         )}
+
+        <form onSubmit={handleSubmit}>
+          <Grid container className={classes.search} spacing={5}>
+            <Grid item>
+              <TextField
+                label="Type (Cat/Dog/Fish)"
+                variant="outlined"
+                color='error'
+                onChange={e => setUserInputPet(e.target.value)}
+                value={userInputPet}
+              />
+              {showPetError && <Typography color='error'>Please enter Cat, Dog, or Fish</Typography>}
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Gender (Male/Female)"
+                variant="outlined"
+                color='error'
+                onChange={e => setUserInputGender(e.target.value)}
+                value={userInputGender}
+              />
+              {showGenderError && <Typography color='error'>Please enter Male or Female</Typography>}
+            </Grid>
+          </Grid>
+
+          <Grid container className={`${classes.center} ${classes.mTop}`}>
+            <Grid item>
+              <Button variant='contained' color='error' type='submit'>
+                Search
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+
+
+
       </Container>
     </>
   )

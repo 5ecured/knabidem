@@ -9,11 +9,11 @@ test('Header must have the text "Medibank Coding Challenge"', () => {
     expect(element).toBeInTheDocument()
 })
 
-// test('Appbar background color must be red', () => {
-//     render(<App />)
-//     const element = screen.getByTestId('appbar')
-//     expect(element).toHaveStyle(`color: `)
-// })
+test('Must have an appbar', () => {
+    render(<App />)
+    const element = screen.getByTestId('appBar')
+    expect(element).toBeInTheDocument()
+})
 
 test('Must render 4 list items, to show the requirements of the coding challenge', () => {
     render(<App />)
@@ -27,10 +27,16 @@ test('Must have a button to show/hide solution', () => {
     expect(element).toBeInTheDocument()
 })
 
-test('Must have an input field', () => {
+test('Must have an input field for users to filter', () => {
     render(<App />)
-    const element = screen.getByTestId('inputfield')
+    const element = screen.getByTestId('inputField')
     expect(element).toBeInTheDocument()
+})
+
+test('Input field must be empty', () => {
+    render(<App />)
+    const element = screen.getByTestId('inputField')
+    expect(element.value).toBe(undefined)
 })
 
 test('Must have a "clear filter" button', () => {

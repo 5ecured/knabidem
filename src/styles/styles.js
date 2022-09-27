@@ -22,5 +22,13 @@ export const useStyles = makeStyles(() => ({
     answer: {
         justifyContent: 'space-around',
         marginTop: '25px'
+    },
+    search: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '25px',
+    },
+    mBot2: {
+        marginBottom: '50px'
     }
 }))

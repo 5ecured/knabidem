@@ -30,5 +30,8 @@ export const useStyles = makeStyles(() => ({
     },
     mBot2: {
         marginBottom: '50px'
+    },
+    invisible: {
+        visibility: 'hidden'
     }
 }))

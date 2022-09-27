@@ -142,7 +142,12 @@ const App = () => {
                 onChange={e => setUserInputPet(e.target.value)}
                 value={userInputPet}
               />
-              {showPetError && <Typography color='error'>Please enter Cat, Dog, or Fish</Typography>}
+              {
+                showPetError ?
+                  <Typography color='error'>Please enter Cat, Dog, or Fish</Typography>
+                  :
+                  <Typography className={classes.invisible}>a</Typography>
+              }
             </Grid>
             <Grid item>
               <TextField
@@ -152,7 +157,12 @@ const App = () => {
                 onChange={e => setUserInputGender(e.target.value)}
                 value={userInputGender}
               />
-              {showGenderError && <Typography color='error'>Please enter Male or Female</Typography>}
+              {
+                showGenderError ?
+                  <Typography color='error'>Please enter Male or Female</Typography>
+                  :
+                  <Typography className={classes.invisible}>a</Typography>
+              }
             </Grid>
           </Grid>
 

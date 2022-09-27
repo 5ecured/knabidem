@@ -30,6 +30,7 @@ This is to showcase the extra functionality, where there are two user inputs (ty
 ### Examples of functionalities:
 
 - Fetching from an API
-- Displaying the content as per the instructions
+- Displaying the content based on certain conditions as per the instructions
 - State management 
 - Filter
+- Validation

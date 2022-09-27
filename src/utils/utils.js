@@ -53,6 +53,9 @@ export const delay = milliseconds => {
     })
 }
 
+
+//Decided to create a similar function to 'populateCatsBasedOnGender' because I decided not to touch 
+//the functions from the previous/original requirements
 export const outputPets = (arr, type, gender) => {
     let temp = []
 

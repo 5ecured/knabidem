@@ -8,7 +8,7 @@ import { delay, outputPets } from './utils/utils';
 
 
 const App = () => {
-  const [showSolution, setShowSolution] = useState(false)
+  const [showSolution, setShowSolution] = useState(true)
   const [fetchedData, setFetchedData] = useState([])
   const [filteredData, setFilteredData] = useState('')
   const [userInputPet, setUserInputPet] = useState('')
@@ -16,6 +16,7 @@ const App = () => {
   const [showPetError, setShowPetError] = useState(false)
   const [showGenderError, setShowGenderError] = useState(false)
   const [resultsArray, setResultsArray] = useState([])
+  const [show, setShow] = useState(true)
 
   const classes = useStyles()
 
@@ -65,6 +66,7 @@ const App = () => {
 
     const result = outputPets(fetchedData, userInputPet, userInputGender)
     setResultsArray(result)
+    setShow(true)
   }
 
 
@@ -162,6 +164,7 @@ const App = () => {
                 color='error'
                 onChange={handleChange}
                 value={userInputPet}
+                title='petField'
               />
               {
                 showPetError ?
@@ -178,6 +181,7 @@ const App = () => {
                 color='error'
                 onChange={handleChange}
                 value={userInputGender}
+                title='genderField'
               />
               {
                 showGenderError ?
@@ -196,21 +200,22 @@ const App = () => {
             </Grid>
             <OutputResults
               resultsArray={resultsArray}
-              userInputPet={userInputPet}
-              userInputGender={userInputGender}
+              show={show}
             />
           </Grid>
 
+          {/* Had to add an inline style because flexDirection does not work in styles.js */}
           <Grid container className={`${classes.filter} ${classes.mBot2}`} style={{ flexDirection: 'column' }} spacing={2}>
             <Grid item>
-              <Button variant='contained' color='error' type='submit'>
+              <Button variant='contained' color='error' type='submit' data-testid='searchButton'>
                 Search
               </Button>
             </Grid>
             <Grid item>
-              <Button variant='outlined' color='error' onClick={e => {
+              <Button variant='outlined' color='error' data-testid='clearButton' onClick={e => {
                 setUserInputPet('')
                 setUserInputGender('')
+                setShow(false)
               }}>
                 Clear
               </Button>

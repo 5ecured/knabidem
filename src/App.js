@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { fetchData } from './utils/utils';
 import DisplayContent from './components/DisplayContent/DisplayContent'
+import OutputResults from './components/OutputResults/OutputResults';
 import { AppBar, Toolbar, Typography, Container, Grid, Button, TextField, CssBaseline } from '@mui/material';
 import { useStyles } from './styles/styles';
 import { delay, outputPets } from './utils/utils';
+
 
 const App = () => {
   const [showSolution, setShowSolution] = useState(false)
@@ -13,7 +15,6 @@ const App = () => {
   const [userInputGender, setUserInputGender] = useState('')
   const [showPetError, setShowPetError] = useState(false)
   const [showGenderError, setShowGenderError] = useState(false)
-  const [showResults, setShowResults] = useState(false)
   const [resultsArray, setResultsArray] = useState([])
 
   const classes = useStyles()
@@ -40,11 +41,15 @@ const App = () => {
     setShowGenderError(false)
   }
 
+  const handleChange = e => {
+    let val = e.target.value
+    if (e.target.name === 'pet') setUserInputPet(val)
+    if (e.target.name === 'gender') setUserInputGender(val)
+  }
 
 
   const handleSubmit = async e => {
     e.preventDefault()
-
 
     //For validation
     const petArray = ['dog', 'cat', 'fish']
@@ -58,7 +63,6 @@ const App = () => {
       triggerGenderError()
     }
 
-    setShowResults(true)
     const result = outputPets(fetchedData, userInputPet, userInputGender)
     setResultsArray(result)
   }
@@ -103,6 +107,17 @@ const App = () => {
                 Submissions will only be accepted via GitHub or Bitbucket.
               </Typography>
             </li>
+            <hr />
+            <li>
+              <Typography gutterBottom>
+                The first button shows the original functionality (listed above), you may hide it if you would like to focus on the second, newer functionality
+              </Typography>
+            </li>
+            <li>
+              <Typography gutterBottom>
+                The second part (with type and gender) shows the new functionality
+              </Typography>
+            </li>
           </ul>
         </Grid>
 
@@ -116,7 +131,6 @@ const App = () => {
           showSolution={showSolution}
           fetchedData={fetchedData}
           filteredData={filteredData}
-          resultsArray={resultsArray}
         />
 
         {showSolution && (
@@ -142,14 +156,11 @@ const App = () => {
           <Grid container className={classes.search} spacing={5}>
             <Grid item>
               <TextField
+                name='pet'
                 label="Type (Cat/Dog/Fish)"
                 variant="outlined"
                 color='error'
-                onChange={e => {
-                  let val = e.target.value
-                  let capitalized = val[0].toUpperCase() + val.slice(1)
-                  setUserInputPet(capitalized)
-                }}
+                onChange={handleChange}
                 value={userInputPet}
               />
               {
@@ -161,14 +172,11 @@ const App = () => {
             </Grid>
             <Grid item>
               <TextField
+                name='gender'
                 label="Gender (Male/Female)"
                 variant="outlined"
                 color='error'
-                onChange={e => {
-                  let val = e.target.value
-                  let capitalized = val[0].toUpperCase() + val.slice(1)
-                  setUserInputGender(capitalized)
-                }}
+                onChange={handleChange}
                 value={userInputGender}
               />
               {
@@ -180,12 +188,17 @@ const App = () => {
             </Grid>
           </Grid>
 
-          <Grid container>
-              <Grid item>
-                <Typography>
-                  Results here
-                </Typography>
-              </Grid>
+          <Grid container className={classes.center}>
+            <Grid item>
+              <Typography variant='h5'>
+                {userInputPet} {'-'} {userInputGender}
+              </Typography>
+            </Grid>
+            <OutputResults
+              resultsArray={resultsArray}
+              userInputPet={userInputPet}
+              userInputGender={userInputGender}
+            />
           </Grid>
 
           <Grid container className={`${classes.filter} ${classes.mBot2}`} style={{ flexDirection: 'column' }} spacing={2}>

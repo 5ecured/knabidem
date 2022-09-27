@@ -21,7 +21,7 @@ export const useStyles = makeStyles(() => ({
     },
     answer: {
         justifyContent: 'space-around',
-        marginTop: '25px'
+        marginTop: '25px',
     },
     search: {
         justifyContent: 'center',

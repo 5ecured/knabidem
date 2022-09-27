@@ -56,11 +56,11 @@ export const delay = milliseconds => {
 export const outputPets = (arr, type, gender) => {
     let temp = []
 
-    const genderArray = arr.filter(el => el.gender === gender)
+    const genderArray = arr.filter(el => el.gender.toLowerCase() === gender.toLowerCase())
 
     genderArray.forEach(el => {
         el.pets.forEach(el => {
-            if (el.type === type) temp.push(el.name)
+            if (el.type.toLowerCase() === type.toLowerCase()) temp.push(el.name)
         })
     })
     return temp.sort()

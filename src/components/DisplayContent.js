@@ -2,8 +2,24 @@ import React from 'react'
 import { Typography, Grid } from '@mui/material';
 import Man2Icon from '@mui/icons-material/Man2';
 import Woman2Icon from '@mui/icons-material/Woman2';
+import { populateCatsBasedOnGender, createAndSortCats, filterCats } from '../utils';
 
-const DisplayContent = ({ filteredMaleArray, filteredFemaleArray, showSolution }) => {
+const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
+
+    //catsObjWithMaleOwner and catsObjWithFemaleOwner are now populated: [ {cat object}, {cat object}, {cat object} ]
+    const catsObjWithMaleOwner = populateCatsBasedOnGender(fetchedData, 'Male')
+    const catsObjWithFemaleOwner = populateCatsBasedOnGender(fetchedData, 'Female')
+
+
+    //Now we get an array of cat names that have been sorted e.g. [ "Garfield", "Jim", "Max", "Tom" ]
+    const catsMaleArray = createAndSortCats(catsObjWithMaleOwner)
+    const catsFemaleArray = createAndSortCats(catsObjWithFemaleOwner)
+
+
+    //For the filter feature to work
+    const filteredMaleArray = filterCats(catsMaleArray, filteredData)
+    const filteredFemaleArray = filterCats(catsFemaleArray, filteredData)
+
 
     //Turn the array into a JSX element, so that we can render 
     const displayMaleCats = filteredMaleArray.map(cat => (

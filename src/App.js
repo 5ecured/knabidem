@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { fetchData } from './utils/utils';
-import DisplayContent from './components/DisplayContent'
+import DisplayContent from './components/DisplayContent/DisplayContent'
 import { AppBar, Toolbar, Typography, Container, Grid, Button, TextField, CssBaseline } from '@mui/material';
 import { useStyles } from './styles/styles';
 
@@ -26,7 +26,7 @@ const App = () => {
     <>
       <CssBaseline />
 
-      <AppBar position='relative' color='error'>
+      <AppBar position='relative' color='error' data-testid='appbar'>
         <Toolbar>
           <Grid container className={classes.center}>
             <Grid item>
@@ -63,7 +63,7 @@ const App = () => {
         </Grid>
 
         <Grid container className={classes.center}>
-          <Button variant={showSolution ? 'outlined' : 'contained'} color='error' onClick={() => setShowSolution(!showSolution)}>
+          <Button data-testid='button' variant={showSolution ? 'outlined' : 'contained'} color='error' onClick={() => setShowSolution(!showSolution)}>
             {showSolution ? 'Hide solution' : 'Show solution'}
           </Button>
         </Grid>
@@ -76,7 +76,7 @@ const App = () => {
 
         {showSolution && (
           //Had to add 1 inline style because flexDirection does not work in styles.js. 
-          <Grid container className={classes.filter} style={{flexDirection: 'column'}} spacing={2}>
+          <Grid container className={classes.filter} style={{ flexDirection: 'column' }} spacing={2}>
             <Grid item>
               <TextField
                 label="Filter cats here"
@@ -84,10 +84,11 @@ const App = () => {
                 color='error'
                 onChange={e => setFilteredData(e.target.value)}
                 value={filteredData}
+                data-testid='inputfield'
               />
             </Grid>
             <Grid item>
-              <Button variant='outlined' color='error' onClick={() => setFilteredData('')}>Clear filter</Button>
+              <Button data-testid='clearFilter' variant='outlined' color='error' onClick={() => setFilteredData('')}>Clear filter</Button>
             </Grid>
           </Grid>
         )}

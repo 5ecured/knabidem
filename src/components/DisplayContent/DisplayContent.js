@@ -2,8 +2,8 @@ import React from 'react'
 import { Typography, Grid } from '@mui/material';
 import Man2Icon from '@mui/icons-material/Man2';
 import Woman2Icon from '@mui/icons-material/Woman2';
-import { populateCatsBasedOnGender, createAndSortCats, filterCats } from '../utils/utils';
-import { useStyles } from '../styles/styles';
+import { populateCatsBasedOnGender, createAndSortCats, filterCats } from '../../utils/utils';
+import { useStyles } from '../../styles/styles';
 
 const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
     const classes = useStyles()
@@ -38,7 +38,7 @@ const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
             {showSolution && (<>
                 <Grid container className={classes.answer}>
                     <Grid item>
-                        <Typography variant='h5' align='center'>
+                        <Typography variant='h5' align='center' data-testid='male'>
                             Male{'  '}<Man2Icon />
                         </Typography>
                         <ul className={classes.displayCats}>
@@ -46,7 +46,7 @@ const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
                         </ul>
                     </Grid>
                     <Grid item>
-                        <Typography variant='h5' align='center'>
+                        <Typography variant='h5' align='center' data-testid='female'>
                             Female{'  '}<Woman2Icon />
                         </Typography>
                         <ul className={classes.displayCats}>

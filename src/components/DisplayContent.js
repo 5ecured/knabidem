@@ -2,9 +2,11 @@ import React from 'react'
 import { Typography, Grid } from '@mui/material';
 import Man2Icon from '@mui/icons-material/Man2';
 import Woman2Icon from '@mui/icons-material/Woman2';
-import { populateCatsBasedOnGender, createAndSortCats, filterCats } from '../utils';
+import { populateCatsBasedOnGender, createAndSortCats, filterCats } from '../utils/utils';
+import { useStyles } from '../styles/styles';
 
 const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
+    const classes = useStyles()
 
     //catsObjWithMaleOwner and catsObjWithFemaleOwner are now populated: [ {cat object}, {cat object}, {cat object} ]
     const catsObjWithMaleOwner = populateCatsBasedOnGender(fetchedData, 'Male')
@@ -34,12 +36,12 @@ const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
     return (
         <>
             {showSolution && (<>
-                <Grid container justifyContent='space-around' style={{ marginTop: '25px' }}>
+                <Grid container className={classes.answer}>
                     <Grid item>
                         <Typography variant='h5' align='center'>
                             Male{'  '}<Man2Icon />
                         </Typography>
-                        <ul style={{ padding: 0 }}>
+                        <ul className={classes.displayCats}>
                             {displayMaleCats}
                         </ul>
                     </Grid>
@@ -47,7 +49,7 @@ const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
                         <Typography variant='h5' align='center'>
                             Female{'  '}<Woman2Icon />
                         </Typography>
-                        <ul style={{ padding: 0 }}>
+                        <ul className={classes.displayCats}>
                             {displayFemaleCats}
                         </ul>
                     </Grid>

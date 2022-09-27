@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { fetchData } from './utils';
+import { fetchData } from './utils/utils';
 import DisplayContent from './components/DisplayContent'
 import { AppBar, Toolbar, Typography, Container, Grid, Button, TextField, CssBaseline } from '@mui/material';
+import { useStyles } from './styles/styles';
 
 const App = () => {
   const [showSolution, setShowSolution] = useState(true)
   const [fetchedData, setFetchedData] = useState([])
   const [filteredData, setFilteredData] = useState('')
+
+  const classes = useStyles()
 
   useEffect(() => {
     const getData = async () => {
@@ -25,7 +28,7 @@ const App = () => {
 
       <AppBar position='relative' color='error'>
         <Toolbar>
-          <Grid container justifyContent='center' alignItems='center'>
+          <Grid container className={classes.center}>
             <Grid item>
               <Typography variant='h5'>Medibank Coding Challenge</Typography>
             </Grid>
@@ -33,8 +36,8 @@ const App = () => {
         </Toolbar>
       </AppBar>
 
-      <Container style={{ marginTop: '25px' }}>
-        <Grid container justifyContent='center' alignItems='center' style={{ marginBottom: '25px' }}>
+      <Container className={classes.mTop}>
+        <Grid container className={`${classes.center} ${classes.mBot}`} >
           <ul>
             <li>
               <Typography gutterBottom>
@@ -59,7 +62,7 @@ const App = () => {
           </ul>
         </Grid>
 
-        <Grid container justifyContent='center' alignItems='center'>
+        <Grid container className={classes.center}>
           <Button variant={showSolution ? 'outlined' : 'contained'} color='error' onClick={() => setShowSolution(!showSolution)}>
             {showSolution ? 'Hide solution' : 'Show solution'}
           </Button>
@@ -72,7 +75,8 @@ const App = () => {
         />
 
         {showSolution && (
-          <Grid container justifyContent='center' direction='column' alignItems='center' spacing={2}>
+          //Had to add 1 inline style because flexDirection does not work in styles.js. 
+          <Grid container className={classes.filter} style={{flexDirection: 'column'}} spacing={2}>
             <Grid item>
               <TextField
                 label="Filter cats here"

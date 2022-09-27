@@ -52,3 +52,16 @@ export const delay = milliseconds => {
         setTimeout(resolve, milliseconds)
     })
 }
+
+export const outputPets = (arr, type, gender) => {
+    let temp = []
+
+    const genderArray = arr.filter(el => el.gender === gender)
+
+    genderArray.forEach(el => {
+        el.pets.forEach(el => {
+            if (el.type === type) temp.push(el.name)
+        })
+    })
+    return temp.sort()
+}

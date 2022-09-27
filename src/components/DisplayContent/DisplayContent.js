@@ -5,7 +5,8 @@ import Woman2Icon from '@mui/icons-material/Woman2';
 import { populateCatsBasedOnGender, createAndSortCats, filterCats } from '../../utils/utils';
 import { useStyles } from '../../styles/styles';
 
-const DisplayContent = ({ fetchedData, filteredData, showSolution }) => {
+const DisplayContent = ({ fetchedData, filteredData, showSolution, resultsArray }) => {
+    console.log(resultsArray);
     const classes = useStyles()
 
     //catsObjWithMaleOwner and catsObjWithFemaleOwner are now populated: [ {cat object}, {cat object}, {cat object} ]

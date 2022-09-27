@@ -3,7 +3,7 @@ import { fetchData } from './utils/utils';
 import DisplayContent from './components/DisplayContent/DisplayContent'
 import { AppBar, Toolbar, Typography, Container, Grid, Button, TextField, CssBaseline } from '@mui/material';
 import { useStyles } from './styles/styles';
-import { delay } from './utils/utils';
+import { delay, outputPets } from './utils/utils';
 
 const App = () => {
   const [showSolution, setShowSolution] = useState(false)
@@ -13,6 +13,8 @@ const App = () => {
   const [userInputGender, setUserInputGender] = useState('')
   const [showPetError, setShowPetError] = useState(false)
   const [showGenderError, setShowGenderError] = useState(false)
+  const [showResults, setShowResults] = useState(false)
+  const [resultsArray, setResultsArray] = useState([])
 
   const classes = useStyles()
 
@@ -39,12 +41,14 @@ const App = () => {
   }
 
 
-  //For validation
-  let petArray = ['dog', 'cat', 'fish']
-  let genderArray = ['male', 'female']
 
   const handleSubmit = async e => {
     e.preventDefault()
+
+
+    //For validation
+    const petArray = ['dog', 'cat', 'fish']
+    const genderArray = ['male', 'female']
 
     if (!petArray.includes(userInputPet.toLowerCase())) {
       triggerPetError()
@@ -54,8 +58,9 @@ const App = () => {
       triggerGenderError()
     }
 
-
-
+    setShowResults(true)
+    const result = outputPets(fetchedData, userInputPet, userInputGender)
+    setResultsArray(result)
   }
 
 
@@ -111,10 +116,11 @@ const App = () => {
           showSolution={showSolution}
           fetchedData={fetchedData}
           filteredData={filteredData}
+          resultsArray={resultsArray}
         />
 
         {showSolution && (
-          //Had to add 1 inline style because flexDirection does not work in styles.js. 
+          //Had to add an inline style because flexDirection does not work in styles.js. 
           <Grid container className={`${classes.filter} ${classes.mBot2}`} style={{ flexDirection: 'column' }} spacing={2}>
             <Grid item>
               <TextField
@@ -139,7 +145,11 @@ const App = () => {
                 label="Type (Cat/Dog/Fish)"
                 variant="outlined"
                 color='error'
-                onChange={e => setUserInputPet(e.target.value)}
+                onChange={e => {
+                  let val = e.target.value
+                  let capitalized = val[0].toUpperCase() + val.slice(1)
+                  setUserInputPet(capitalized)
+                }}
                 value={userInputPet}
               />
               {
@@ -154,7 +164,11 @@ const App = () => {
                 label="Gender (Male/Female)"
                 variant="outlined"
                 color='error'
-                onChange={e => setUserInputGender(e.target.value)}
+                onChange={e => {
+                  let val = e.target.value
+                  let capitalized = val[0].toUpperCase() + val.slice(1)
+                  setUserInputGender(capitalized)
+                }}
                 value={userInputGender}
               />
               {
@@ -166,10 +180,26 @@ const App = () => {
             </Grid>
           </Grid>
 
-          <Grid container className={`${classes.center} ${classes.mTop}`}>
+          <Grid container>
+              <Grid item>
+                <Typography>
+                  Results here
+                </Typography>
+              </Grid>
+          </Grid>
+
+          <Grid container className={`${classes.filter} ${classes.mBot2}`} style={{ flexDirection: 'column' }} spacing={2}>
             <Grid item>
               <Button variant='contained' color='error' type='submit'>
                 Search
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant='outlined' color='error' onClick={e => {
+                setUserInputPet('')
+                setUserInputGender('')
+              }}>
+                Clear
               </Button>
             </Grid>
           </Grid>

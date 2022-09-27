@@ -5,17 +5,21 @@ import OutputResults from './components/OutputResults/OutputResults';
 import { AppBar, Toolbar, Typography, Container, Grid, Button, TextField, CssBaseline } from '@mui/material';
 import { useStyles } from './styles/styles';
 import { delay, outputPets } from './utils/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetch } from './features/data/dataSlice';
+import { getPetAndGender } from './features/search/searchSlice';
 
 
 const App = () => {
+  const dispatch = useDispatch()
+  const fetchedData = useSelector(state => state.data.array)
+
   const [showSolution, setShowSolution] = useState(true)
-  const [fetchedData, setFetchedData] = useState([])
   const [filteredData, setFilteredData] = useState('')
   const [userInputPet, setUserInputPet] = useState('')
   const [userInputGender, setUserInputGender] = useState('')
   const [showPetError, setShowPetError] = useState(false)
   const [showGenderError, setShowGenderError] = useState(false)
-  const [resultsArray, setResultsArray] = useState([])
   const [show, setShow] = useState(true)
 
   const classes = useStyles()
@@ -23,7 +27,7 @@ const App = () => {
   useEffect(() => {
     const getData = async () => {
       const data = await fetchData()
-      setFetchedData(data)
+      dispatch(fetch(data))
     }
 
     getData()
@@ -65,7 +69,7 @@ const App = () => {
     }
 
     const result = outputPets(fetchedData, userInputPet, userInputGender)
-    setResultsArray(result)
+    dispatch(getPetAndGender(result))
     setShow(true)
   }
 
@@ -199,7 +203,6 @@ const App = () => {
               </Typography>
             </Grid>
             <OutputResults
-              resultsArray={resultsArray}
               show={show}
             />
           </Grid>

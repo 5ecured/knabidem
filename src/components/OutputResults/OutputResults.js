@@ -1,9 +1,11 @@
 import React from 'react'
 import { useStyles } from '../../styles/styles';
 import { Grid, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 
-const OutputResults = ({ resultsArray, show }) => {
+const OutputResults = ({ show }) => {
+    const resultsArray = useSelector(state => state.search.array)
     const classes = useStyles()
 
     const display = resultsArray.map((el, i) => {

@@ -33,7 +33,7 @@ const App = () => {
     }
 
     getData()
-  }, [])
+  }, [dispatch])
 
 
   const triggerPetError = async () => {
@@ -142,6 +142,7 @@ const App = () => {
             </li>
 
             <hr className={`${classes.mTop} ${classes.mBot}`} />
+            
             <Typography variant='h5'>Notes:</Typography>
             <li>
               <Typography gutterBottom>

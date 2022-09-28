@@ -10,10 +10,12 @@ import { fetch } from './features/data/dataSlice';
 import { getPetAndGender } from './features/search/searchSlice';
 
 
+
 const App = () => {
   const dispatch = useDispatch()
   const fetchedData = useSelector(state => state.data.array)
 
+  //Below are simple states to be prop-drilled only once. As a result I decided not to use Redux Toolkit for these
   const [showSolution, setShowSolution] = useState(true)
   const [filteredData, setFilteredData] = useState('')
   const [userInputPet, setUserInputPet] = useState('')
@@ -93,6 +95,7 @@ const App = () => {
       <Container className={classes.mTop}>
         <Grid container className={`${classes.center} ${classes.mBot}`} >
           <ul>
+            <Typography variant='h5'>Requirements 1:</Typography>
             <li>
               <Typography gutterBottom>
                 Write some code to consume the json hosted on the above web service.
@@ -113,15 +116,41 @@ const App = () => {
                 Submissions will only be accepted via GitHub or Bitbucket.
               </Typography>
             </li>
-            <hr />
+
+            <hr className={`${classes.mTop} ${classes.mBot}`} />
+
+            <Typography variant='h5'>Requirements 2:</Typography>
             <li>
               <Typography gutterBottom>
-                The first button shows the original functionality (listed above), you may hide it if you would like to focus on the second, newer functionality
+                Add two user inputs - Type of pet and Gender of owner.
               </Typography>
             </li>
             <li>
               <Typography gutterBottom>
-                The second part (with type and gender) shows the new functionality
+                Both the fields are mandatory to do a search.
+              </Typography>
+            </li>
+            <li>
+              <Typography gutterBottom>
+                Ensure you validate the input before doing the search.
+              </Typography>
+            </li>
+            <li>
+              <Typography gutterBottom>
+                After entering both the fields, if the user hit Search CTA, the app should output the list of all pets of the specified type listed under the heading of the gender of their owner, which was the second input.
+              </Typography>
+            </li>
+
+            <hr className={`${classes.mTop} ${classes.mBot}`} />
+            <Typography variant='h5'>Notes:</Typography>
+            <li>
+              <Typography gutterBottom>
+                The first button shows the original functionality (Requirements 1), you may hide it if you would like to focus on the second, newer functionality
+              </Typography>
+            </li>
+            <li>
+              <Typography gutterBottom>
+                The second part (Requirements 2) shows the new functionality
               </Typography>
             </li>
           </ul>

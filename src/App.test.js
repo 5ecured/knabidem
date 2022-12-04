@@ -6,7 +6,6 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 
 
-
 test('Header must have the text "Medibank Coding Challenge"', () => {
     render(
         <Provider store={store}>
